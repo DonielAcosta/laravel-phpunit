@@ -9,8 +9,18 @@ class Post extends Model
 {
     use HasFactory;
 
-  public function setNameAttribute($value)
-  {
-    $this->attributes['name'] = strtolower($value);
-  }
+    public function setNameAttribute($value) 
+    {
+        $this->attributes['name'] = strtolower($value); // Mutators
+    }
+
+    public function getSlugAttribute() 
+    {
+        return str_replace(' ', '-', $this->name); // Accessors
+    }
+
+    public function href()
+    {
+        return "blog/{$this->slug}";
+    }
 }
